@@ -11,7 +11,6 @@ const AppRoutes: React.FC = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />}>
-          {" "}
         </Route>
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="*" element={<ErroPagina />} />

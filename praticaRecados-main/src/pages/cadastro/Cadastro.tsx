@@ -41,7 +41,7 @@ function Cadastro() {
   
 
   useEffect(() => {
-    const storage = localStorage.getItem("dados") || "[]";
+    const storage = localStorage.getItem("Usuarios") || "[]";
     setlist(JSON.parse(storage));
   }, []);
 
@@ -52,7 +52,7 @@ function Cadastro() {
       senha: senha,
       recados: [],
     });
-    localStorage.setItem("dados", JSON.stringify(list));
+    localStorage.setItem("Usuarios", JSON.stringify(list));
 
     Swal.fire({
       title: 'Sucesso!',
@@ -134,6 +134,7 @@ function Cadastro() {
 }
 
 export default Cadastro;
+
 function swal(arg0: string, arg1: { buttons: boolean; timer: number; icon: string; }) {
   throw new Error("Function not implemented.");
 }

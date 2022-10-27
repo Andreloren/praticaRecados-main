@@ -1,11 +1,13 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Input from "../../Shared/components/inputs/Input";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Background from "../../Shared/components/background/Background";
 import { Button } from "@mui/material";
 import Buttons from "../../Shared/components/botoes/Buttons";
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import React from "react";
 
 const CardLog = styled.div`
   width: 50%;
@@ -21,7 +23,40 @@ const CardLog = styled.div`
   }
 `;
 
+interface User {
+  email: string;
+  senha: string;
+}
+
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [list, setlist] = useState<User[]>([]);
+  const navigate = useNavigate();
+
+  const logar = () => {
+    const usuarios: User[] = JSON.parse(localStorage.getItem('usuarios') || '[]');
+    
+    const procurauser = usuarios.find((item: User) => email === item.email && senha === item.senha)
+
+    if(!procurauser){
+      console.log("usuario nao existe");
+    }else{
+      console.log('logado');
+    }
+
+
+    // list.find((usuarios) => {
+    //   return console.log(usuarios.email, usuarios.senha);
+    // })
+
+    // useEffect(() => {
+
+    // }, []);
+
+    // navigate("/home");
+  };
+
   return (
     <>
       <Background>
@@ -29,7 +64,11 @@ export default function Login() {
           <h1>Logar</h1>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={12}>
-              <Input id="standard-input" label="E-mail" />
+              <Input 
+              id="standard-input" 
+              label="E-mail"
+              onChange={(e) => setEmail(e.target.value)}
+              />
             </Grid>
 
             <Grid item xs={12} sm={12} md={12}>
@@ -37,11 +76,19 @@ export default function Login() {
                 id="standard-password-input"
                 label="Password"
                 type="password"
+                onChange={(e) => setSenha(e.target.value)}
               />
             </Grid>
 
             <Grid item xs={12} sm={12} md={12}>
-              <Button>Logar</Button>
+              <Buttons
+                tipoBotao="button"
+                onClick={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  logar();
+                }}
+              >
+                Logar
+              </Buttons>
             </Grid>
             <Grid item xs={12} sm={12} md={12}>
               <Button variant="contained">
